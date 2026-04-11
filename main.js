@@ -32,13 +32,28 @@ const generateLottoSets = () => {
         const bonusNumber = numberArray.pop();
         const mainNumbers = numberArray.sort((a, b) => a - b);
 
-        // Create elements
+        // Create main container
         const setDiv = document.createElement('div');
         setDiv.classList.add('lotto-set');
         
+        // Create Banner
+        const setBanner = document.createElement('div');
+        setBanner.classList.add('set-banner', `banner-${i}`);
+        
         const setTitle = document.createElement('div');
         setTitle.classList.add('set-title');
-        setTitle.textContent = `SET ${i}`;
+        setTitle.textContent = `🍀 LOTTO 추천 SET ${i}`;
+        
+        const setInfo = document.createElement('div');
+        setInfo.style.fontSize = '0.8rem';
+        setInfo.textContent = '가장 행운의 번호';
+        
+        setBanner.appendChild(setTitle);
+        setBanner.appendChild(setInfo);
+
+        // Create Content Area
+        const setContent = document.createElement('div');
+        setContent.classList.add('set-content');
         
         const numbersRow = document.createElement('div');
         numbersRow.classList.add('numbers-row');
@@ -63,8 +78,9 @@ const generateLottoSets = () => {
         bonusBall.textContent = bonusNumber;
         numbersRow.appendChild(bonusBall);
 
-        setDiv.appendChild(setTitle);
-        setDiv.appendChild(numbersRow);
+        setContent.appendChild(numbersRow);
+        setDiv.appendChild(setBanner);
+        setDiv.appendChild(setContent);
         resultsContainer.appendChild(setDiv);
     }
 };

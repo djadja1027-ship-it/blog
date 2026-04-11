@@ -79,31 +79,54 @@ h1 { margin: 0; font-size: 1.5rem; }
     max-width: 800px;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 20px;
 }
 
 .lotto-set {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: 12px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    overflow: hidden; /* For banner rounded corners */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s;
+}
+
+.lotto-set:hover {
+    transform: translateY(-2px);
+}
+
+.set-banner {
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner-1 { background: linear-gradient(90deg, #ff6b6b, #ee5253); }
+.banner-2 { background: linear-gradient(90deg, #54a0ff, #2e86de); }
+.banner-3 { background: linear-gradient(90deg, #1dd1a1, #10ac84); }
+.banner-4 { background: linear-gradient(90deg, #feca57, #ff9f43); }
+.banner-5 { background: linear-gradient(90deg, #5f27cd, #341f97); }
+
+.set-content {
+    padding: 20px;
 }
 
 .set-title {
     font-weight: bold;
     font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 5px;
+    color: rgba(255,255,255,0.9);
 }
 
 .numbers-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
     justify-content: center;
 }
