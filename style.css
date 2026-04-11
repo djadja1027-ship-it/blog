@@ -37,7 +37,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 h1 { margin: 0; font-size: 1.5rem; }
@@ -74,46 +74,66 @@ h1 { margin: 0; font-size: 1.5rem; }
     background-color: var(--btn-hover);
 }
 
-/* Lotto Machine Styles */
+/* Real Lotto Machine Styles */
 .machine-container {
     margin: 20px 0 40px 0;
     position: relative;
-    width: 180px;
-    height: 200px;
+    width: 280px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.lotto-drum {
-    width: 140px;
-    height: 140px;
-    border: 10px solid #ccc;
-    border-radius: 50%;
+.lotto-drum-wrapper {
+    width: 100%;
+    height: 100%;
     position: relative;
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+}
+
+.actual-machine-img {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+    object-fit: contain;
+    z-index: 1;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+}
+
+body.dark-mode .actual-machine-img {
+    filter: drop-shadow(0 10px 20px rgba(255,255,255,0.05)) contrast(1.1);
+}
+
+/* Spinning effect for the whole machine or just drum part */
+.spinning .actual-machine-img {
+    animation: shake-machine 0.1s infinite alternate;
+}
+
+.mini-balls-container {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
+    overflow: hidden;
+    border-radius: 50%;
 }
 
-body.dark-mode .lotto-drum {
-    border-color: #555;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-/* Balls inside drum */
 .mini-ball {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    opacity: 0.8;
 }
 
+/* Initially random positions */
 .mini-ball:nth-child(1) { top: 20%; left: 30%; background: #fbc02d; }
 .mini-ball:nth-child(2) { top: 50%; left: 60%; background: #1976d2; }
 .mini-ball:nth-child(3) { top: 70%; left: 20%; background: #d32f2f; }
@@ -121,36 +141,18 @@ body.dark-mode .lotto-drum {
 .mini-ball:nth-child(5) { top: 60%; left: 70%; background: #7b7b7b; }
 .mini-ball:nth-child(6) { top: 30%; left: 60%; background: #ff9f43; }
 
-.spinning {
-    animation: rotate-drum 0.3s infinite linear;
-}
-
 .spinning .mini-ball {
-    animation: bounce 0.15s infinite alternate;
+    animation: crazy-bounce 0.1s infinite alternate;
 }
 
-.drum-stand {
-    width: 100px;
-    height: 30px;
-    background: #aaa;
-    margin-top: -5px;
-    border-radius: 0 0 10px 10px;
-    position: relative;
-    z-index: 1;
+@keyframes shake-machine {
+    from { transform: translate(-1px, 1px) rotate(-0.5deg); }
+    to { transform: translate(1px, -1px) rotate(0.5deg); }
 }
 
-body.dark-mode .drum-stand {
-    background: #444;
-}
-
-@keyframes rotate-drum {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes bounce {
-    from { transform: translate(0, 0); }
-    to { transform: translate(25px, 35px); }
+@keyframes crazy-bounce {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(40px, 50px); }
 }
 
 /* Result Styles */

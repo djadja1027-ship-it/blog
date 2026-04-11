@@ -27,7 +27,7 @@ const generateLottoSets = () => {
     generateBtn.textContent = '추첨 중...';
     resultsContainer.style.opacity = '0.3';
 
-    // 2. Wait for animation to finish (1.5s)
+    // 2. Wait for animation to finish (2s for more realism)
     setTimeout(() => {
         lottoDrum.classList.remove('spinning');
         generateBtn.disabled = false;
