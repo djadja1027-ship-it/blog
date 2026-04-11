@@ -37,7 +37,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 h1 { margin: 0; font-size: 1.5rem; }
@@ -74,6 +74,86 @@ h1 { margin: 0; font-size: 1.5rem; }
     background-color: var(--btn-hover);
 }
 
+/* Lotto Machine Styles */
+.machine-container {
+    margin: 20px 0 40px 0;
+    position: relative;
+    width: 180px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lotto-drum {
+    width: 140px;
+    height: 140px;
+    border: 10px solid #ccc;
+    border-radius: 50%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 2;
+}
+
+body.dark-mode .lotto-drum {
+    border-color: #555;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Balls inside drum */
+.mini-ball {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.mini-ball:nth-child(1) { top: 20%; left: 30%; background: #fbc02d; }
+.mini-ball:nth-child(2) { top: 50%; left: 60%; background: #1976d2; }
+.mini-ball:nth-child(3) { top: 70%; left: 20%; background: #d32f2f; }
+.mini-ball:nth-child(4) { top: 40%; left: 40%; background: #388e3c; }
+.mini-ball:nth-child(5) { top: 60%; left: 70%; background: #7b7b7b; }
+.mini-ball:nth-child(6) { top: 30%; left: 60%; background: #ff9f43; }
+
+.spinning {
+    animation: rotate-drum 0.3s infinite linear;
+}
+
+.spinning .mini-ball {
+    animation: bounce 0.15s infinite alternate;
+}
+
+.drum-stand {
+    width: 100px;
+    height: 30px;
+    background: #aaa;
+    margin-top: -5px;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    z-index: 1;
+}
+
+body.dark-mode .drum-stand {
+    background: #444;
+}
+
+@keyframes rotate-drum {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+    from { transform: translate(0, 0); }
+    to { transform: translate(25px, 35px); }
+}
+
+/* Result Styles */
 .lotto-results {
     width: 100%;
     max-width: 800px;
@@ -88,7 +168,7 @@ h1 { margin: 0; font-size: 1.5rem; }
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* For banner rounded corners */
+    overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     transition: transform 0.2s;
 }
@@ -150,9 +230,8 @@ h1 { margin: 0; font-size: 1.5rem; }
     margin: 0 5px;
 }
 
-/* Ball Colors */
-.ball-1-10 { background-color: #fbc02d; } /* Yellow */
-.ball-11-20 { background-color: #1976d2; } /* Blue */
-.ball-21-30 { background-color: #d32f2f; } /* Red */
-.ball-31-40 { background-color: #7b7b7b; } /* Gray */
-.ball-41-45 { background-color: #388e3c; } /* Green */
+.ball-1-10 { background-color: #fbc02d; }
+.ball-11-20 { background-color: #1976d2; }
+.ball-21-30 { background-color: #d32f2f; }
+.ball-31-40 { background-color: #7b7b7b; }
+.ball-41-45 { background-color: #388e3c; }

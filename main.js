@@ -1,6 +1,7 @@
 const resultsContainer = document.getElementById('results-container');
 const generateBtn = document.getElementById('generate-btn');
 const themeToggle = document.getElementById('theme-toggle');
+const lottoDrum = document.getElementById('lotto-drum');
 
 // Theme Toggle Logic
 themeToggle.addEventListener('click', () => {
@@ -20,69 +21,77 @@ const getBallColorClass = (number) => {
 
 // Lotto Number Generation Logic (5 sets)
 const generateLottoSets = () => {
-    resultsContainer.innerHTML = '';
-    
-    for (let i = 1; i <= 5; i++) {
-        const numbers = new Set();
-        while (numbers.size < 7) {
-            numbers.add(Math.floor(Math.random() * 45) + 1);
+    // 1. Start Animation
+    lottoDrum.classList.add('spinning');
+    generateBtn.disabled = true;
+    generateBtn.textContent = '추첨 중...';
+    resultsContainer.style.opacity = '0.3';
+
+    // 2. Wait for animation to finish (1.5s)
+    setTimeout(() => {
+        lottoDrum.classList.remove('spinning');
+        generateBtn.disabled = false;
+        generateBtn.textContent = '새 번호 생성';
+        resultsContainer.style.opacity = '1';
+        
+        resultsContainer.innerHTML = '';
+        
+        for (let i = 1; i <= 5; i++) {
+            const numbers = new Set();
+            while (numbers.size < 7) {
+                numbers.add(Math.floor(Math.random() * 45) + 1);
+            }
+
+            const numberArray = Array.from(numbers);
+            const bonusNumber = numberArray.pop();
+            const mainNumbers = numberArray.sort((a, b) => a - b);
+
+            const setDiv = document.createElement('div');
+            setDiv.classList.add('lotto-set');
+            
+            const setBanner = document.createElement('div');
+            setBanner.classList.add('set-banner', `banner-${i}`);
+            
+            const setTitle = document.createElement('div');
+            setTitle.classList.add('set-title');
+            setTitle.textContent = `🍀 LOTTO 추천 SET ${i}`;
+            
+            const setInfo = document.createElement('div');
+            setInfo.style.fontSize = '0.8rem';
+            setInfo.textContent = '가장 행운의 번호';
+            
+            setBanner.appendChild(setTitle);
+            setBanner.appendChild(setInfo);
+
+            const setContent = document.createElement('div');
+            setContent.classList.add('set-content');
+            
+            const numbersRow = document.createElement('div');
+            numbersRow.classList.add('numbers-row');
+
+            mainNumbers.forEach(num => {
+                const ball = document.createElement('div');
+                ball.classList.add('ball', getBallColorClass(num));
+                ball.textContent = num;
+                numbersRow.appendChild(ball);
+            });
+
+            const plusSign = document.createElement('span');
+            plusSign.classList.add('plus-sign');
+            plusSign.textContent = '+';
+            numbersRow.appendChild(plusSign);
+
+            const bonusBall = document.createElement('div');
+            bonusBall.classList.add('ball', getBallColorClass(bonusNumber));
+            bonusBall.textContent = bonusNumber;
+            numbersRow.appendChild(bonusBall);
+
+            setContent.appendChild(numbersRow);
+            setDiv.appendChild(setBanner);
+            setDiv.appendChild(setContent);
+            resultsContainer.appendChild(setDiv);
         }
-
-        const numberArray = Array.from(numbers);
-        const bonusNumber = numberArray.pop();
-        const mainNumbers = numberArray.sort((a, b) => a - b);
-
-        // Create main container
-        const setDiv = document.createElement('div');
-        setDiv.classList.add('lotto-set');
-        
-        // Create Banner
-        const setBanner = document.createElement('div');
-        setBanner.classList.add('set-banner', `banner-${i}`);
-        
-        const setTitle = document.createElement('div');
-        setTitle.classList.add('set-title');
-        setTitle.textContent = `🍀 LOTTO 추천 SET ${i}`;
-        
-        const setInfo = document.createElement('div');
-        setInfo.style.fontSize = '0.8rem';
-        setInfo.textContent = '가장 행운의 번호';
-        
-        setBanner.appendChild(setTitle);
-        setBanner.appendChild(setInfo);
-
-        // Create Content Area
-        const setContent = document.createElement('div');
-        setContent.classList.add('set-content');
-        
-        const numbersRow = document.createElement('div');
-        numbersRow.classList.add('numbers-row');
-
-        // Main Numbers
-        mainNumbers.forEach(num => {
-            const ball = document.createElement('div');
-            ball.classList.add('ball', getBallColorClass(num));
-            ball.textContent = num;
-            numbersRow.appendChild(ball);
-        });
-
-        // Plus Sign
-        const plusSign = document.createElement('span');
-        plusSign.classList.add('plus-sign');
-        plusSign.textContent = '+';
-        numbersRow.appendChild(plusSign);
-
-        // Bonus Number
-        const bonusBall = document.createElement('div');
-        bonusBall.classList.add('ball', getBallColorClass(bonusNumber));
-        bonusBall.textContent = bonusNumber;
-        numbersRow.appendChild(bonusBall);
-
-        setContent.appendChild(numbersRow);
-        setDiv.appendChild(setBanner);
-        setDiv.appendChild(setContent);
-        resultsContainer.appendChild(setDiv);
-    }
+    }, 1500);
 };
 
 generateBtn.addEventListener('click', generateLottoSets);
