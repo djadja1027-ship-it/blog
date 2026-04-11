@@ -1,24 +1,93 @@
+:root {
+    --bg-color: #f0f2f5;
+    --container-bg: #fff;
+    --text-color: #333;
+    --btn-bg: #4CAF50;
+    --btn-hover: #45a049;
+}
+
+body.theme-dark {
+    --bg-color: #1a1a1a;
+    --container-bg: #2d2d2d;
+    --text-color: #f0f2f5;
+    --btn-bg: #555;
+    --btn-hover: #777;
+}
+
+body.theme-blue {
+    --bg-color: #e3f2fd;
+    --container-bg: #ffffff;
+    --text-color: #0d47a1;
+    --btn-bg: #2196f3;
+    --btn-hover: #1976d2;
+}
+
+body.theme-green {
+    --bg-color: #e8f5e9;
+    --container-bg: #ffffff;
+    --text-color: #1b5e20;
+    --btn-bg: #4caf50;
+    --btn-hover: #388e3c;
+}
+
+body.theme-pink {
+    --bg-color: #fce4ec;
+    --container-bg: #ffffff;
+    --text-color: #880e4f;
+    --btn-bg: #e91e63;
+    --btn-hover: #c2185b;
+}
+
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    transition: all 0.3s ease;
 }
 
 .container {
-    background-color: #fff;
+    background-color: var(--container-bg);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 h1 {
-    color: #333;
+    color: var(--text-color);
 }
+
+.theme-selector {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.theme-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+}
+
+.btn-white { background-color: #fff; }
+.btn-dark { background-color: #333; }
+.btn-blue { background-color: #2196f3; }
+.btn-green { background-color: #4caf50; }
+.btn-pink { background-color: #e91e63; }
 
 .numbers-container {
     display: flex;
@@ -37,10 +106,11 @@ h1 {
     font-size: 1.5rem;
     font-weight: bold;
     color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 #generate-btn {
-    background-color: #4CAF50;
+    background-color: var(--btn-bg);
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -51,5 +121,5 @@ h1 {
 }
 
 #generate-btn:hover {
-    background-color: #45a049;
+    background-color: var(--btn-hover);
 }
